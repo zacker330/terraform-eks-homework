@@ -2,10 +2,12 @@
   newEksClusterSg(vars):: {
     aws_security_group: {
       [vars.aws.eks.eks_security_group_name]: {
+//        name: vars.aws.eks.eks_security_group_name,
         vpc_id: '${aws_vpc.' + vars.aws.vpc.name + '.id}',
         description: 'Cluster communication with worker nodes',
       },
       [vars.aws.eks.node_security_group_name]: {
+//        name: vars.aws.eks.node_security_group_name,
         vpc_id: '${aws_vpc.' + vars.aws.vpc.name + '.id}',
         description: 'Security group for all nodes in the cluster',
         egress: [

@@ -28,6 +28,10 @@ The public subnet goes out through the Internet gateway and the private subnet g
 ### Log
 We also want to log events in CloudWatch for the cluster, so we create a log group for the eks cluster. 
 
+### Security
+
+In order to ensure network security, we create some security groups and rules for eks cluster.
+
 # Part2: Implementation
 
 ## Code Structure 
@@ -87,6 +91,7 @@ Many benefits from monorepo as below:
 │   │   ├── aws # It stores all templates of aws terraform resource. 
 │   │   │   ├── BUILD.bazel
 │   │   │   ├── eip.libsonnet
+│   │   │   ├── security_group_rule.libsonnet # security groups and rules for eks
 │   │   │   ├── eks_cluster.libsonnet
 │   │   │   ├── eks_node_group.libsonnet
 │   │   │   ├── iam_role.libsonnet
@@ -140,6 +145,8 @@ So, finally, the tools we are using are:
 1. Terraform
 2. Jsonnet
 3. Bazel
+
+<img src="doc/tools.svg"/>
 
 
 ### What about Secret?

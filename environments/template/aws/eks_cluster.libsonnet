@@ -12,6 +12,10 @@ local tags = import 'tags.libsonnet';
             '${aws_subnet.' + subnet_name + '.id}'
             for subnet_name in std.objectFields(subnets)
           ],
+          security_group_ids:[
+            "${aws_security_group."+ vars.aws.eks.eks_security_group_name  +".id}",
+            "${aws_security_group."+ vars.aws.eks.node_security_group_name  +".id}",
+          ],
           endpoint_private_access: true,
           endpoint_public_access: vars.aws.eks.enable_endpoint_public_access,
           public_access_cidrs: ['0.0.0.0/0'],
