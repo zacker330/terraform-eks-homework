@@ -7,7 +7,7 @@ local tags = import 'tags.libsonnet';
         route_table_id: '${aws_route_table.' + nat_gateway_name_list[subnet_index % std.length(nat_gateway_name_list)] + '.id}',
       }
       for subnet_index in std.range(0, std.length(subnet_name_list) - 1)
-      if std.startsWith(subnet_name_list[subnet_index], 'private_app')
+      if std.startsWith(subnet_name_list[subnet_index], 'private_')
     } +
     {
       ['igw_' + subnet_name]: {

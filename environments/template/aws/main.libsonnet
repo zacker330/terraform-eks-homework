@@ -10,6 +10,7 @@ local route_table_association = import 'route_table_association.libsonnet';
 local subnet = import 'subnet.libsonnet';
 local tags = import 'tags.libsonnet';
 local vpc = import 'vpc.libsonnet';
+local cloudwatch_log_group = import "cloudwatch_log_group.libsonnet";
 local default_vars = {
   env: error 'env value is required',
 };
@@ -59,6 +60,7 @@ local default_vars = {
       aws_iam_role_policy_attachment: iam_role_policy_attachment.new(vars),
       aws_eks_cluster: eks_cluster.new(vars, it.resource._subnets),
       aws_eks_node_group: eks_node_group.new(vars, it.resource._subnets),
+      aws_cloudwatch_log_group: cloudwatch_log_group.newEksLog(vars),
     },  // end of resource,
     output: {
       eks_endpoint: {

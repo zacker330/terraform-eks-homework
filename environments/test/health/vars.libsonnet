@@ -20,7 +20,6 @@ local secrets = import "secrets.libsonnet";
       cidr: '10.101.0.0/16',
       availability_zones: [it.aws.region + 'b', it.aws.region + 'c'],
       private_subnets: ['10.101.3.0/24', '10.101.4.0/24'],
-      db_subnets: ['10.101.7.0/24', '10.101.8.0/24'],
       public_subnets: ['10.101.0.0/24', '10.101.1.0/24'],
     },
     eks:{
@@ -31,18 +30,10 @@ local secrets = import "secrets.libsonnet";
         ami_type: 'AL2_x86_64',  // AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
       },
       enable_endpoint_public_access: true,
+      enabled_cluster_log: true,
       internet_gateway_name: it.project_name + '_' + it.env + '_main',
       public_node_group: {
         name: it.aws.eks.name + '_public_node_group',
-        disk_size: 10,
-        scaling_config: {
-          desired_size: 0,
-          max_size: 2,
-          min_size: 0,
-        },
-      },
-      db_node_group: {
-        name: it.aws.eks.name + '_private_db_node_group',
         disk_size: 10,
         scaling_config: {
           desired_size: 0,
@@ -64,8 +55,7 @@ local secrets = import "secrets.libsonnet";
 
     //    https://aws.amazon.com/ec2/instance-types/#Compute_Optimized
     public_subnet_instance_types: ['t2.small', 't2.medium'],
-    private_app_subnet_instance_types: ['t2.small', 't2.medium'],
-    private_db_subnet_instance_types: ['t2.small', 't2.medium'],
-    all_subnet_cidr_block: self.public_subnet_cidr_block + self.private_app_subnet_cidr_block + self.private_db_subnet_cidr_block,
+    private_subnet_instance_types: ['t2.small', 't2.medium'],
+    all_subnet_cidr_block: self.public_subnet_cidr_block + self.private_subnet_cidr_block,
   },
 }

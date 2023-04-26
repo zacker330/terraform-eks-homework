@@ -11,7 +11,7 @@ jsonnet_library(
     ],
     deps=[":vpc",":tags",":internet_gateway",":subnet",
           ":eip",":nat_gateway",":route_table", ":route_table_association",
-          ":iam_role",":iam_role_policy_attachment",":eks_cluster",":eks_node_group"]
+          ":iam_role",":iam_role_policy_attachment",":eks_cluster",":eks_node_group",":cloudwatch_log_group"]
 )
 jsonnet_library(
     name = "tags",
@@ -25,6 +25,14 @@ jsonnet_library(
     visibility = ["//environments:__subpackages__"],
     srcs = [
         "vpc.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "cloudwatch_log_group",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "cloudwatch_log_group.libsonnet",
     ],
     deps=[':tags']
 )
