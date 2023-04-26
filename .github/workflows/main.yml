@@ -1,0 +1,19 @@
+name: terraform-eks-homework
+run-name: ${{ github.actor }} run CI/CD
+on: [push]
+jobs:
+  bazel-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: bazelbuild/setup-bazelisk@v2
+    - name: Git Secret Reveal Step
+      uses: entrostat/git-secret-action@v3.3.0
+      with:
+        gpg-private-key: ${{ secrets.PRIVATE_SECRET }}
+    - name: Mount bazel cache  # Optional
+      uses: actions/cache@v3
+      with:
+        path: "~/.cache/bazel"
+        key: bazel-eks-terraform
+    - run: bazel build //...

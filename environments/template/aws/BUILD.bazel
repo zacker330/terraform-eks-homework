@@ -1,0 +1,110 @@
+load("@io_bazel_rules_jsonnet//jsonnet:jsonnet.bzl", "jsonnet_library", "jsonnet_to_json")
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+package(default_visibility = ["//environments:__subpackages__"])
+
+jsonnet_library(
+    name = "main",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "main.libsonnet",
+    ],
+    deps=[":vpc",":tags",":internet_gateway",":subnet",
+          ":eip",":nat_gateway",":route_table", ":route_table_association",
+          ":iam_role",":iam_role_policy_attachment",":eks_cluster",":eks_node_group"]
+)
+jsonnet_library(
+    name = "tags",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "tags.libsonnet",
+    ],
+)
+jsonnet_library(
+    name = "vpc",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "vpc.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "eks_node_group",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "eks_node_group.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "eks_cluster",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "eks_cluster.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "iam_role",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "iam_role.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "iam_role_policy_attachment",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "iam_role_policy_attachment.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "route_table_association",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "route_table_association.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "route_table",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "route_table.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "nat_gateway",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "nat_gateway.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "eip",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "eip.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "internet_gateway",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "internet_gateway.libsonnet",
+    ],
+    deps=[':tags']
+)
+jsonnet_library(
+    name = "subnet",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "subnet.libsonnet",
+    ],
+    deps=[':tags']
+)
