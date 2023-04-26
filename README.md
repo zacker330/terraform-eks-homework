@@ -149,6 +149,10 @@ So, finally, the tools we are using are:
 
 <img src="doc/tools.svg"/>
 
+Another articles about Jsonnet:
+- [Fractal Application](https://jsonnet.org/articles/fractal.1.html)
+- [Streamlining Terraform configuration with Jsonnet](https://www.codethink.co.uk/articles/2021/single-configuration-language/)
+
 ### What about Secret?
 We use [git-secret](https://github.com/sobolevn/git-secret) for hiding our secrets in the monorepo. And the reveal secret key we can save it into GitHub Actions secrets for building.
 
