@@ -11,13 +11,20 @@ jsonnet_library(
     ],
     deps=[":vpc",":tags",":internet_gateway",":subnet",
           ":eip",":nat_gateway",":route_table", ":route_table_association",
-          ":iam_role",":iam_role_policy_attachment",":eks_cluster",":eks_node_group",":cloudwatch_log_group"]
+          ":iam_role",":iam_role_policy_attachment",":eks_cluster",":eks_node_group",":cloudwatch_log_group",":security_group_rule"]
 )
 jsonnet_library(
     name = "tags",
     visibility = ["//environments:__subpackages__"],
     srcs = [
         "tags.libsonnet",
+    ],
+)
+jsonnet_library(
+    name = "security_group_rule",
+    visibility = ["//environments:__subpackages__"],
+    srcs = [
+        "security_group_rule.libsonnet",
     ],
 )
 jsonnet_library(

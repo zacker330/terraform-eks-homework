@@ -29,6 +29,8 @@ local secrets = import "secrets.libsonnet";
         release_version: '1.25.7-20230411',
         ami_type: 'AL2_x86_64',  // AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
       },
+      eks_security_group_name: self.name + "_eks_sg",
+      node_security_group_name: self.name + "_nodes_sg",
       enable_endpoint_public_access: true,
       enabled_cluster_log: true,
       internet_gateway_name: it.project_name + '_' + it.env + '_main',

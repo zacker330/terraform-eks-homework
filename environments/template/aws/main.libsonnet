@@ -10,6 +10,7 @@ local route_table_association = import 'route_table_association.libsonnet';
 local subnet = import 'subnet.libsonnet';
 local tags = import 'tags.libsonnet';
 local vpc = import 'vpc.libsonnet';
+local security_group_rule = import 'security_group_rule.libsonnet';
 local cloudwatch_log_group = import "cloudwatch_log_group.libsonnet";
 local default_vars = {
   env: error 'env value is required',
@@ -47,7 +48,7 @@ local default_vars = {
       },
       aws: vars.terraform.provider.aws,
     },
-    resource: {
+    resource: security_group_rule.newEksClusterSg(vars) + {
       aws_vpc: vpc.new(vars),
       aws_internet_gateway: internet_gateway.new(vars),
       _subnets:: subnet.new(vars),
