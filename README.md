@@ -92,6 +92,7 @@ Many benefits from monorepo as below:
 │   │   │   ├── BUILD.bazel
 │   │   │   ├── eip.libsonnet
 │   │   │   ├── security_group_rule.libsonnet # security groups and rules for eks
+│   │   │   ├── example-main.tf.json
 │   │   │   ├── eks_cluster.libsonnet
 │   │   │   ├── eks_node_group.libsonnet
 │   │   │   ├── iam_role.libsonnet
@@ -148,7 +149,6 @@ So, finally, the tools we are using are:
 
 <img src="doc/tools.svg"/>
 
-
 ### What about Secret?
 We use [git-secret](https://github.com/sobolevn/git-secret) for hiding our secrets in the monorepo. And the reveal secret key we can save it into GitHub Actions secrets for building.
 
@@ -184,11 +184,11 @@ Helm is a deployment tool for Kubernetes. The deployment command is `helm instal
 
 The values file of Nginx Controller is written by Jsonnet also. So we have to build them before the deployment.
 
-### on local development environment
+### on Local Development Environment
 You can follow these steps to deploy application to Kubernetes:
 1. config your kubernetes config in your `~/.kube/config` file.
 2. run command `bazel test //... &&  bazel build //...` in the root of this repo, then you would get a Helm values file with JSON format.  
-4. deploy it with `helm install -n nginx-ingress -f bazel-bin/environments/test/health/app/nginx-ingress.json nginx-ingress ./charts/nginx-ingress`
+3. deploy it with `helm install -n nginx-ingress -f bazel-bin/environments/test/health/app/nginx-ingress.json nginx-ingress ./charts/nginx-ingress`
 
 ### Verify it
 After finishing the deployment, we can get an endpoint of nginx-controller that exposed by NLB. 
