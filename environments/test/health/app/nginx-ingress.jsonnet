@@ -1,3 +1,4 @@
+local tags = import "../../../../environments/template/aws/tags.libsonnet";
 {
   "controller": {
     "name": "controller",
@@ -8,6 +9,7 @@
     "appprotect": {
       "enable": false
     },
+    nodeSelector: tags.publicNetwork,
     "appprotectdos": {
       "enable": false,
       "debug": false,
@@ -137,7 +139,7 @@
     },
     "pod": {
       "annotations": {},
-      "extraLabels": {}
+      "extraLabels": tags.publicNetwork,
     },
     "readyStatus": {
       "enable": true,

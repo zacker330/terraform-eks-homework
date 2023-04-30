@@ -8,11 +8,10 @@ local tags = import 'tags.libsonnet';
         cidr_block: vars.aws.vpc.public_subnets[i],
         map_public_ip_on_launch: true,
         tags: tags.common(name=vars.project_name + '_public_' + i,env= vars.env, owner=vars.project_name)+{
-          immutable_metadata: '{ "purpose": "external_' + vars.aws.vpc.name + '", "target": null }',
-          Network: 'public',
+          immutable_metadata: '{ "purpose": "external_' + vars.aws.vpc.name + '"}',
           'kubernetes.io/role/elb': 1,
           ['kubernetes.io/cluster/' + vars.aws.eks.name]: 'owned',
-        },
+        }+tags.publicNetwork,
       }
       for i in std.range(0, std.length(vars.aws.vpc.public_subnets) - 1)
     }
@@ -23,11 +22,10 @@ local tags = import 'tags.libsonnet';
         availability_zone: vars.aws.vpc.availability_zones[i % std.length(vars.aws.vpc.private_subnets)],
         cidr_block: vars.aws.vpc.private_subnets[i],
         tags: tags.common(name=vars.project_name + '_private_' + i,env= vars.env, owner=vars.project_name)+{
-          immutable_metadata: '{ "purpose": "' + vars.aws.vpc.name + '", "target": null }',
-          Network: 'private',
+          immutable_metadata: '{ "purpose": "' + vars.aws.vpc.name + '" }',
           'kubernetes.io/role/internal-elb': 1,
           ['kubernetes.io/cluster/' + vars.aws.eks.name]: 'owned',
-        },
+        } + tags.privateNetwork,
       }
       for i in std.range(0, std.length(vars.aws.vpc.private_subnets) - 1)
     }

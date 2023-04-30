@@ -33,11 +33,7 @@ local tags = import 'tags.libsonnet';
         lifecycle:{
           ignore_changes: ["scaling_config[0].desired_size"]
         },
-        labels: {
-          env: vars.env,
-          owner: vars.project_name,
-          terraform: true
-        },
+        labels: tags.common(name=self.node_group_name, env=vars.env, owner=vars.project_name) + tags.publicNetwork,
       },
       [vars.aws.eks.public_node_group.name]: {
         cluster_name: vars.aws.eks.name,
@@ -65,10 +61,7 @@ local tags = import 'tags.libsonnet';
           'aws_iam_role_policy_attachment.attach_eks_ec2_container_registry_read_only_policy',
           'aws_iam_role_policy_attachment.attach_eks_ssm_managed_instance_core_policy',
         ],
-        labels: {
-          env: vars.env,
-          Name: vars.aws.eks.public_node_group.name,
-        },
+        labels: tags.common(name=self.node_group_name, env=vars.env,owner=vars.project_name) + tags.privateNetwork,
       },
     },
 

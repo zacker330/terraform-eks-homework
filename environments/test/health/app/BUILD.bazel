@@ -6,6 +6,6 @@ package(default_visibility = ["//environments/test/health:__subpackages__"])
 jsonnet_to_json(
     name = "nginx-ingress",
     src = "nginx-ingress.jsonnet",
-    deps = [],
+    deps = ["//environments/template/aws:tags"],
     outs = ["nginx-ingress.json"],
 )
