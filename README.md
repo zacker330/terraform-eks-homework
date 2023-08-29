@@ -1,14 +1,7 @@
 
 
 # Overview
-
-In this doc, we will go through two parts of
-
-The homework allows me that deploying a nginx container on a EC2 or a EKS. I choose option 2: building an EKS then deploy a nginx on it.
-
-And I notice that the key of the homework is using terraform.
-
-In the next document, I describe my solution from the following parts:
+In this document, I'll describe my solution from the following parts:
 - Part1 Architecture: describe the desired state of the architecture
 - Part2 Implementation:
     - Code Structure Introduce
